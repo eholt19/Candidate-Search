@@ -3,8 +3,14 @@ services:
     name: candidate-search
     env: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: |
+      npm ci
+      npm install vite --save-dev
+      npm run build
     startCommand: npm run preview
     envVars:
       - key: VITE_GITHUB_TOKEN
         sync: false
+    buildFilter:
+      paths:
+        - .
