@@ -17,10 +17,17 @@ const CandidateSearch = () => {
 
   const handleAccept = () => {
     const saved = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
-    saved.push(candidates[currentIndex]);
-    localStorage.setItem('savedCandidates', JSON.stringify(saved));
+    const current = candidates[currentIndex];
+  
+    const alreadySaved = saved.some((c: GitHubUser) => c.login === current.login);
+    if (!alreadySaved) {
+      saved.push(current);
+      localStorage.setItem('savedCandidates', JSON.stringify(saved));
+    }
+  
     handleNext();
   };
+  
 
   const handleNext = () => {
     const nextIndex = currentIndex + 1;
