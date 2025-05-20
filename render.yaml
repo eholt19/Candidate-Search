@@ -1,16 +1,13 @@
 services:
   - type: web
     name: candidate-search
-    env: node
-    plan: free
-    buildCommand: |
-      npm ci
-      npm install vite --save-dev
-      npm run build
-    startCommand: npm run preview
+    env: static
+    staticPublishPath: dist
+    buildCommand: npm run build
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
     envVars:
       - key: VITE_GITHUB_TOKEN
         sync: false
-    buildFilter:
-      paths:
-        - .
