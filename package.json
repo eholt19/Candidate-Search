@@ -2,6 +2,7 @@
   "name": "13-challenge",
   "private": true,
   "version": "0.0.0",
+  "packageManager": "npm@9.8.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -27,6 +28,5 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "4.5.2"
-
   }
 }
