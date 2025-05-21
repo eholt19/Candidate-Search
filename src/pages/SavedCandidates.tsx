@@ -1,57 +1,40 @@
-import { useEffect, useState } from 'react';
-import { GitHubUser } from '../interfaces/Candidate.interface';
+import { useState, useEffect } from "react";
 
 const SavedCandidates = () => {
-  const [savedCandidates, setSavedCandidates] = useState<GitHubUser[]>([]);
+  const [savedCandidates, setSavedCandidates] = useState<any[]>([]);
 
+  // Load saved candidates from localStorage
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
-    setSavedCandidates(saved);
+    const candidates = JSON.parse(localStorage.getItem("savedCandidates") || "[]");
+    setSavedCandidates(candidates);
   }, []);
 
-  const handleRemove = (login: string) => {
-    const updated = savedCandidates.filter((candidate) => candidate.login !== login);
-    localStorage.setItem('savedCandidates', JSON.stringify(updated));
-    setSavedCandidates(updated);
+  // Reject a saved candidate
+  const rejectCandidate = (index: number) => {
+    const updatedList = savedCandidates.filter((_, i) => i !== index);
+    setSavedCandidates(updatedList);
+    localStorage.setItem("savedCandidates", JSON.stringify(updatedList));
   };
 
-  if (!savedCandidates.length) {
-    return <main><p>No candidates have been accepted.</p></main>;
-  }
-
   return (
-    <main>
-      <h1>Saved Candidates</h1>
-      <div className="table">
-        {savedCandidates.map((candidate) => (
-          <div
-            key={candidate.login}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              padding: '1rem',
-              borderBottom: '1px solid #666',
-            }}
-          >
-            <img src={candidate.avatar_url} alt={candidate.login} width={80} style={{ borderRadius: '50%' }} />
-            <div>
-              <h3>{candidate.name}</h3>
-              <p><strong>Username:</strong> {candidate.login}</p>
-              <p><strong>Location:</strong> {candidate.location}</p>
-              <p><strong>Email:</strong> {candidate.email}</p>
-              <p><strong>Company:</strong> {candidate.company}</p>
-              <p>
-                <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
-                  GitHub Profile
-                </a>
-              </p>
-              <button onClick={() => handleRemove(candidate.login)}>Remove</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
+    <div>
+      <h3>Saved Candidates</h3>
+      {savedCandidates.length === 0 ? (
+        <p>No candidates saved yet.</p>
+      ) : (
+        <ul>
+          {savedCandidates.map((candidate: any, index: number) => (
+            <li key={index}>
+              <img src={candidate.avatar_url} alt={candidate.login} width={50} />
+              <p>{candidate.login}</p>
+              <p>{candidate.location}</p>
+              <p>{candidate.company}</p>
+              <button onClick={() => rejectCandidate(index)}>Reject</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 

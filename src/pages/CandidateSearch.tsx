@@ -1,72 +1,55 @@
-import { useState, useEffect } from 'react';
-import { searchGithub } from '../api/API';
-import { GitHubUser } from '../interfaces/Candidate.interface';
+import { useState, useEffect } from "react";
+import { searchGithub } from "../api/API"; // Ensure this import is correct
 
 const CandidateSearch = () => {
-  const [candidates, setCandidates] = useState<GitHubUser[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [noMore, setNoMore] = useState(false);
+  const [candidate, setCandidate] = useState<any>(null); // Updated to 'any' for flexibility
+  const [candidatesList, setCandidatesList] = useState<any[]>([]); // Updated to handle multiple candidates
 
-  const fetchCandidates = async () => {
-    const results = await searchGithub();
-    setCandidates(results);
-    setCurrentIndex(0);
-    setLoading(false);
-  };
-
-  const handleAccept = () => {
-    const saved = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
-    const current = candidates[currentIndex];
-  
-    const alreadySaved = saved.some((c: GitHubUser) => c.login === current.login);
-    if (!alreadySaved) {
-      saved.push(current);
-      localStorage.setItem('savedCandidates', JSON.stringify(saved));
-    }
-  
-    handleNext();
-  };
-  
-
-  const handleNext = () => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex >= candidates.length) {
-      setNoMore(true);
+  // Fetch next candidate
+  const fetchNextCandidate = async () => {
+    const data = await searchGithub();
+    if (data.length > 0) {
+      setCandidate(data[0]); // Pick the first candidate from the fetched list
     } else {
-      setCurrentIndex(nextIndex);
+      setCandidate(null); // No more candidates
     }
+  };
+
+  // Save the candidate to localStorage
+  const saveCandidate = () => {
+    if (candidate) {
+      const updatedList = [...candidatesList, candidate];
+      setCandidatesList(updatedList);
+      localStorage.setItem("savedCandidates", JSON.stringify(updatedList));
+      fetchNextCandidate();
+    }
+  };
+
+  // Reject current candidate and fetch the next one
+  const rejectCandidate = () => {
+    fetchNextCandidate();
   };
 
   useEffect(() => {
-    fetchCandidates();
+    fetchNextCandidate();
   }, []);
 
-  if (loading) return <main><p>Loading...</p></main>;
-  if (noMore) return <main><p>No more candidates available.</p></main>;
-
-  const candidate = candidates[currentIndex];
-
   return (
-    <main>
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <img src={candidate.avatar_url} alt={candidate.login} width={120} style={{ borderRadius: '50%' }} />
-        <h2>{candidate.name}</h2>
-        <p><strong>Username:</strong> {candidate.login}</p>
-        <p><strong>Location:</strong> {candidate.location}</p>
-        <p><strong>Email:</strong> {candidate.email}</p>
-        <p><strong>Company:</strong> {candidate.company}</p>
-        <p>
-          <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
-        </p>
+    <div>
+      {candidate ? (
         <div>
-          <button onClick={handleAccept}>+</button>
-          <button onClick={handleNext}>-</button>
+          <h3>{candidate.login}</h3>
+          <img src={candidate.avatar_url} alt={candidate.login} width={100} />
+          <p>{candidate.location}</p>
+          <p>{candidate.company}</p>
+          <p>{candidate.email ? candidate.email : "No email available"}</p>
+          <button onClick={saveCandidate}>Save</button>
+          <button onClick={rejectCandidate}>Reject</button>
         </div>
-      </div>
-    </main>
+      ) : (
+        <p>No more candidates available</p>
+      )}
+    </div>
   );
 };
 
