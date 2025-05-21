@@ -68,16 +68,6 @@ Candidate Search is a React + TypeScript application that helps employers search
 
 --
 
-# Screenshots
-
-### Candidate Search
-![Candidate Search](./assets/candidate-search.png)
-
-### Saved Candidates
-![Saved Candidates](./assets/saved-candidates.png)
-
---
-
 # Credits
 
 * GitHub REST API Docs
@@ -98,4 +88,9 @@ This project is licensed under the MIT License
 
 * [GitHub Repo:](https://github.com/eholt19/Candidate-Search)
 
-* [Deployed Site:]()
+* [Deployed Site:](https://candidate-search-56v1.onrender.com)
+
+### ⚠️ Deployment Note
+
+> **Heads up:** Due to intermittent issues with Render's static hosting, you may encounter a `404: Page Not Found` when visiting the deployed site. If that happens, please clone the repo and run the app locally using the instructions below in the [Installation](#installation) section. Thank you for your understanding!
+
