@@ -99,5 +99,3 @@ This project is licensed under the MIT License
 * [GitHub Repo:](https://github.com/eholt19/Candidate-Search)
 
 * [Deployed Site:]()
-
-<!-- Triggering redeploy to fix 404 -->
