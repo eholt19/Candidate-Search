@@ -2,7 +2,7 @@
 
 ## Description
 
-Candidate Search is a React + TypeScript application that helps employers search for potential job candidates by pulling public GitHub user data. The app displays candidate information and allows users to accept or reject them. Accepted candidates are stored locally and viewable on a separate page. This project demonstrates API interaction, conditional rendering, state management, and persistent local storage in a front-end web application.
+Candidate Search is a React + TypeScript application that helps employers search for potential job candidates by pulling public GitHub user data. The app displays candidate information and allows users to accept or reject them. Accepted candidates are stored locally and viewable on a separate page. This project demonstrates API interaction, conditional rendering, state management, routing, and persistent local storage in a front-end web application.
 
 ---
 
@@ -22,74 +22,77 @@ Candidate Search is a React + TypeScript application that helps employers search
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Candidate-Search.git
+   git clone https://github.com/eholt19/Candidate-Search.git
    cd Candidate-Search
+   ```
 
 2. Install dependencies:
-    npm install
+   ```bash
+   npm install
+   ```
 
-3. Create a GitHub personal access token and add it to a .env file:
-    VITE_GITHUB_TOKEN=your_personal_access_token
+3. Create a GitHub personal access token and add it to a `.env` file in the root of the project:
+   ```
+   VITE_GITHUB_TOKEN=your_personal_access_token_here
+   ```
 
 4. Start the development server:
-    npm run dev
+   ```bash
+   npm run dev
+   ```
 
---
+---
 
-# Usage
+## Usage
 
-* When the app loads, a GitHub user is displayed.
+- When the app loads, a GitHub user is displayed with their profile information.
+- Click the ➕ button to save the candidate to your potential list.
+- Click the ➖ button to skip the candidate.
+- Navigate to the **Saved Candidates** page to view previously accepted profiles.
+- Saved candidates persist using localStorage, even after refresh.
 
-* Click the "+" button to save a candidate to your potential list.
+---
 
-* Click the "–" button to skip a candidate.
+## Features
 
-* Navigate to the Saved Candidates page to view accepted profiles.
+- GitHub API integration with authentication token
+- React Router with multi-page navigation
+- Functional components and hooks (`useState`, `useEffect`)
+- Persistent local storage for saved candidates
+- Responsive card-based UI
+- Error handling for empty results or connection issues
 
-* Saved candidates persist using localStorage.
+---
 
---
+## Screenshots
 
-# Features
+![Candidate Search Page](./src/assets/CandidateSearch.png)
 
-* GitHub API integration with authentication token
+![Saved Candidates Page](./src/assets/SavedCandidates.png)
 
-* React Router with clean navigation
+---
 
-* State management with hooks
+## Credits
 
-* Responsive layout and dark/light theme support
+- [GitHub REST API Documentation](https://docs.github.com/en/rest)
+- [Render Static Site Deployment Guide](https://coding-boot-camp.github.io/full-stack/render/render-deployment-guide)
+- Bootcamp Starter Code & Assignment Instructions
 
-* Local storage persistence for saved data
+---
 
-* Rejection/acceptance logic to control the candidate flow
+## License
 
-* Error handling for no candidates or empty saved lists
+This project is licensed under the MIT License.
 
---
+---
 
-# Credits
+## Deployed Application
 
-* GitHub REST API Docs
+- [GitHub Repository](https://github.com/eholt19/Candidate-Search)
+- [Live Site on Render](https://candidate-search-1-6aeo.onrender.com)
 
-* Render Deployment Guide
-
-* Bootcamp Starter Code & Assignment Instructions
-
---
-
-# License
-
-This project is licensed under the MIT License
-
---
-
-# Deployed Application
-
-* [GitHub Repo:](https://github.com/eholt19/Candidate-Search)
-
-* [Deployed Site:](https://candidate-search-56v1.onrender.com)
+---
 
 ### ⚠️ Deployment Note
 
-> **Heads up:** Due to intermittent issues with Render's static hosting, you may encounter a `404: Page Not Found` when visiting the deployed site. If that happens, please clone the repo and run the app locally using the instructions below in the [Installation](#installation) section. Thank you for your understanding!
+> If the deployed site shows a `404: Page Not Found`, please refresh or navigate using the homepage links. This project uses React Router and Render static hosting, which requires a `_redirects` file for routing. All functionality works correctly once the app loads.
