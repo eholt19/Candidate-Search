@@ -93,4 +93,3 @@ This project is licensed under the MIT License
 ### ⚠️ Deployment Note
 
 > **Heads up:** Due to intermittent issues with Render's static hosting, you may encounter a `404: Page Not Found` when visiting the deployed site. If that happens, please clone the repo and run the app locally using the instructions below in the [Installation](#installation) section. Thank you for your understanding!
-
