@@ -22,7 +22,6 @@ const CandidateSearch = () => {
       const fullCandidate = await searchGithubUser(user.login);
       console.log("Detailed user:", fullCandidate);
 
-      // Ensure we got a usable candidate
       if (
         fullCandidate &&
         fullCandidate.login &&
@@ -32,7 +31,7 @@ const CandidateSearch = () => {
         setCandidate(fullCandidate);
       } else {
         console.warn("Invalid user data, trying another...");
-        getCandidate(); // Retry with another user
+        getCandidate();
       }
     } catch (error) {
       console.error("Error fetching candidate:", error);

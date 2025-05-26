@@ -1,7 +1,3 @@
-// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import CandidateSearch from './pages/CandidateSearch';
-// import SavedCandidates from './pages/SavedCandidates';
-
 import { Outlet, Link } from 'react-router-dom';
 
 const App = () => {

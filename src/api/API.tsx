@@ -2,7 +2,6 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const searchGithub = async () => {
   try {
-    // Smaller range = higher chance of valid users
     const start = Math.floor(Math.random() * 10000) + 1;
     const response = await fetch(
       `https://api.github.com/users?since=${start}`,
